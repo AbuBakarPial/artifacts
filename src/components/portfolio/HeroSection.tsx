@@ -1,19 +1,17 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, Phone, Download } from "lucide-react";
 import profilePhoto from "@/assets/profile-photo.jpg";
-import { FloatingOrbs } from "./FloatingOrbs";
+import { ThreeBackground } from "./ThreeBackground";
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden noise-overlay">
-      {/* Background Grid */}
-      <div className="absolute inset-0 grid-pattern opacity-30" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* 3D Background */}
+      <ThreeBackground />
       
-      {/* Floating 3D Elements */}
-      <FloatingOrbs />
-      
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent" />
+      {/* Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background z-[1]" />
+      <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent z-[1]" />
       
       <div className="section-container relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -25,43 +23,57 @@ export const HeroSection = () => {
             className="relative"
           >
             <div className="relative w-64 h-64 lg:w-80 lg:h-80">
-              {/* Animated Ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-pulse-glow" />
-              <div className="absolute -inset-4 rounded-full border border-primary/20 animate-spin-slow" />
+              {/* Animated Rings */}
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-4 rounded-full border border-primary/30"
+              />
+              <motion.div 
+                animate={{ rotate: -360 }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-8 rounded-full border border-accent/20"
+              />
+              <div className="absolute inset-0 rounded-full border-2 border-primary/40 animate-pulse-glow" />
               
               {/* Profile Image */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/50 glow-primary">
+              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/60 glow-primary">
                 <img
                   src={profilePhoto}
-                  alt="Md. Abu Bakar Siddique"
+                  alt="Md. Abu Bakar Siddique - DevSecOps Engineer"
                   className="w-full h-full object-cover"
                 />
+                {/* Image overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
               </div>
               
               {/* Status Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="absolute -bottom-2 left-1/2 -translate-x-1/2 glass-card px-4 py-2 rounded-full"
+                transition={{ delay: 0.6 }}
+                className="absolute -bottom-3 left-1/2 -translate-x-1/2 glass-card px-5 py-2.5 rounded-full border border-primary/30"
               >
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-sm font-medium text-foreground">Available for hire</span>
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                  </span>
+                  <span className="text-sm font-medium text-foreground whitespace-nowrap">Open to opportunities</span>
                 </div>
               </motion.div>
             </div>
           </motion.div>
           
           {/* Hero Content */}
-          <div className="text-center lg:text-left flex-1">
+          <div className="text-center lg:text-left flex-1 max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <span className="inline-block px-4 py-1.5 rounded-full glass-card text-primary text-sm font-medium mb-6">
-                DevSecOps Engineer
+              <span className="inline-block px-4 py-1.5 rounded-full glass-card text-primary text-sm font-semibold tracking-wide mb-6 border border-primary/30">
+                DEVSECOPS ENGINEER
               </span>
             </motion.div>
             
@@ -69,7 +81,7 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-heading mb-6 leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-heading mb-6 leading-[1.1]"
             >
               <span className="text-foreground">Md. Abu Bakar</span>
               <br />
@@ -80,15 +92,15 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8"
+              className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8"
             >
-              Versatile IT Professional bridging{" "}
-              <span className="text-primary">cloud infrastructure</span>,{" "}
-              <span className="text-accent">mobile development</span>, and{" "}
-              <span className="text-primary">offensive security</span> — delivering enterprise-grade solutions.
+              Bridging <span className="text-primary font-medium">cloud infrastructure</span>,{" "}
+              <span className="text-accent font-medium">mobile development</span>, and{" "}
+              <span className="text-primary font-medium">offensive security</span> to deliver 
+              enterprise-grade solutions for government and private sectors.
             </motion.p>
             
-            {/* Contact Links */}
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -97,16 +109,16 @@ export const HeroSection = () => {
             >
               <a
                 href="mailto:sidd.abakar@gmail.com"
-                className="flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+                className="group flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/25"
               >
                 <Mail size={18} />
-                Contact Me
+                Get in Touch
               </a>
               <a
                 href="tel:+8801775811122"
-                className="flex items-center gap-2 px-5 py-3 rounded-lg glass-card border border-border hover:border-primary/50 transition-all hover:scale-105"
+                className="flex items-center gap-2 px-6 py-3.5 rounded-xl glass-card border border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 font-medium"
               >
-                <Phone size={18} />
+                <Phone size={18} className="text-primary" />
                 <span className="text-foreground">+880 1775 811122</span>
               </a>
             </motion.div>
@@ -116,13 +128,14 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex items-center justify-center lg:justify-start gap-4 mt-8"
+              className="flex items-center justify-center lg:justify-start gap-3 mt-8"
             >
+              <span className="text-sm text-muted-foreground mr-2">Connect:</span>
               <a
                 href="https://bd.linkedin.com/in/abu-bakar-pial"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full glass-card border border-border hover:border-primary/50 hover:text-primary transition-all hover:scale-110"
+                className="p-3 rounded-xl glass-card border border-border hover:border-primary/50 hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/10"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin size={20} />
@@ -131,7 +144,7 @@ export const HeroSection = () => {
                 href="https://github.com/AbuBakarPial"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full glass-card border border-border hover:border-primary/50 hover:text-primary transition-all hover:scale-110"
+                className="p-3 rounded-xl glass-card border border-border hover:border-primary/50 hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/10"
                 aria-label="GitHub Profile"
               >
                 <Github size={20} />
@@ -146,16 +159,17 @@ export const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
+        <motion.a
+          href="#about"
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-muted-foreground"
+          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
         >
-          <span className="text-sm">Scroll to explore</span>
-          <ArrowDown size={20} />
-        </motion.div>
+          <span className="text-xs font-medium tracking-wider uppercase">Explore</span>
+          <ArrowDown size={18} />
+        </motion.a>
       </motion.div>
     </section>
   );
