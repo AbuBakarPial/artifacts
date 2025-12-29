@@ -97,15 +97,6 @@ export const NavigationBar = () => {
             })}
           </div>
 
-          {/* CTA Button */}
-          <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, "#contact")}
-            className="hidden md:flex items-center px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-all hover:scale-105"
-          >
-            Contact Me
-          </a>
-
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -143,9 +134,11 @@ export const NavigationBar = () => {
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "#contact")}
-                className="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all mt-2"
+                className={`text-base font-medium transition-colors py-2 ${
+                  activeSection === "contact" ? "text-primary" : "text-muted-foreground hover:text-primary"
+                }`}
               >
-                Contact Me
+                Contact
               </a>
             </div>
           </motion.div>
