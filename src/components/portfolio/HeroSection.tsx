@@ -1,9 +1,48 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, Phone, Download } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
 import profilePhoto from "@/assets/profile-photo.jpg";
 import { ThreeBackground } from "./ThreeBackground";
 
+const useTypingEffect = (texts: string[], typingSpeed = 100, deletingSpeed = 50, pauseTime = 2000) => {
+  const [displayText, setDisplayText] = useState("");
+  const [textIndex, setTextIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentText = texts[textIndex];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (displayText.length < currentText.length) {
+          setDisplayText(currentText.slice(0, displayText.length + 1));
+        } else {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(currentText.slice(0, displayText.length - 1));
+        } else {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);
+        }
+      }
+    }, isDeleting ? deletingSpeed : typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseTime]);
+
+  return displayText;
+};
+
 export const HeroSection = () => {
+  const typedText = useTypingEffect([
+    "DevSecOps Engineer",
+    "Cloud Architect",
+    "Security Specialist",
+    "Mobile Developer"
+  ], 100, 50, 2000);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 3D Background */}
@@ -72,8 +111,9 @@ export const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <span className="inline-block px-4 py-1.5 rounded-full glass-card text-primary text-sm font-semibold tracking-wide mb-6 border border-primary/30">
-                DEVSECOPS ENGINEER
+              <span className="inline-flex items-center px-4 py-1.5 rounded-full glass-card text-primary text-sm font-semibold tracking-wide mb-6 border border-primary/30 min-h-[36px]">
+                <span>{typedText}</span>
+                <span className="ml-0.5 w-0.5 h-5 bg-primary animate-pulse" />
               </span>
             </motion.div>
             
@@ -100,7 +140,7 @@ export const HeroSection = () => {
               enterprise-grade solutions for government and private sectors.
             </motion.p>
             
-            {/* CTA Buttons */}
+            {/* CTA Button */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -108,18 +148,11 @@ export const HeroSection = () => {
               className="flex flex-wrap items-center justify-center lg:justify-start gap-4"
             >
               <a
-                href="mailto:sidd.abakar@gmail.com"
+                href="#contact"
                 className="group flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/25"
               >
                 <Mail size={18} />
                 Get in Touch
-              </a>
-              <a
-                href="tel:+8801775811122"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl glass-card border border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 font-medium"
-              >
-                <Phone size={18} className="text-primary" />
-                <span className="text-foreground">+880 1775 811122</span>
               </a>
             </motion.div>
             
