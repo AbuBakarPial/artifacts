@@ -21,7 +21,7 @@ export const SectionWrapper = ({
   colorVariant = 1,
 }: SectionWrapperProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <section 
@@ -43,9 +43,9 @@ export const SectionWrapper = ({
       <div className="section-container relative z-10" ref={ref}>
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-1.5 rounded-full glass-card text-primary text-sm font-medium mb-4 border border-primary/20">

@@ -89,13 +89,13 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 60, scale: 0.9 },
+  visible: { opacity: 1, y: 0, scale: 1 },
 };
 
 export const SkillsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
     <SectionWrapper
@@ -116,7 +116,7 @@ export const SkillsSection = () => {
           <motion.div
             key={category.title}
             variants={cardVariants}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="glass-card p-6 md:p-8 rounded-xl group hover:border-primary/30 transition-all duration-300 border border-border/30"
           >
             <div className="flex items-center gap-4 mb-6">

@@ -27,7 +27,7 @@ const education = [
 
 export const EducationSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
     <SectionWrapper
@@ -41,9 +41,9 @@ export const EducationSection = () => {
           {education.map((edu, index) => (
             <motion.div
               key={edu.degree}
-              initial={{ opacity: 0, x: -40 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
+              initial={{ opacity: 0, x: -60, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="glass-card p-6 md:p-8 rounded-xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/30 transition-all duration-300 border border-border/30"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-all group-hover:scale-110 duration-300 border border-primary/10">

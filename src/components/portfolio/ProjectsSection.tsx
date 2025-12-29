@@ -63,7 +63,7 @@ const projects = [
 
 export const ProjectsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <SectionWrapper
@@ -77,9 +77,9 @@ export const ProjectsSection = () => {
         {projects.map((project, index) => (
           <motion.article
             key={project.title}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+            initial={{ opacity: 0, y: 70, scale: 0.92 }}
+            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 + index * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
             className={`glass-card rounded-2xl overflow-hidden group hover:border-primary/40 transition-all duration-500 border border-border/30 ${
               project.featured ? "lg:col-span-2" : ""
             }`}
