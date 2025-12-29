@@ -1,14 +1,33 @@
-import { useRef, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Sphere, MeshDistortMaterial, Stars } from "@react-three/drei";
 import * as THREE from "three";
 
-const AnimatedSphere = ({ position, color, speed = 1, distort = 0.3 }: { 
-  position: [number, number, number]; 
-  color: string; 
-  speed?: number;
-  distort?: number;
-}) => {
+const isWebGLAvailable = () => {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl")
+    );
+  } catch {
+    return false;
+  }
+};
+
+const AnimatedSphere = (
+  {
+    position,
+    color,
+    speed = 1,
+    distort = 0.3,
+  }: {
+    position: [number, number, number];
+    color: string;
+    speed?: number;
+    distort?: number;
+  }
+) => {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
@@ -38,7 +57,7 @@ const AnimatedSphere = ({ position, color, speed = 1, distort = 0.3 }: {
 
 const FloatingParticles = () => {
   const pointsRef = useRef<THREE.Points>(null);
-  
+
   const particles = useMemo(() => {
     const positions = new Float32Array(200 * 3);
     for (let i = 0; i < 200; i++) {
@@ -126,14 +145,14 @@ const Scene = () => {
       <ambientLight intensity={0.2} />
       <directionalLight position={[10, 10, 5]} intensity={0.5} />
       <pointLight position={[-10, -10, -5]} intensity={0.3} color="#00d4ff" />
-      
+
       <AnimatedSphere position={[-3, 1, -5]} color="#00d4ff" speed={0.5} distort={0.4} />
       <AnimatedSphere position={[3.5, -1, -6]} color="#ffc107" speed={0.3} distort={0.3} />
       <AnimatedSphere position={[0, 2.5, -8]} color="#00d4ff" speed={0.4} distort={0.5} />
-      
+
       <FloatingParticles />
       <GeometricShapes />
-      
+
       <Stars
         radius={50}
         depth={50}
@@ -148,6 +167,21 @@ const Scene = () => {
 };
 
 export const ThreeBackground = () => {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    setEnabled(isWebGLAvailable());
+  }, []);
+
+  if (!enabled) {
+    return (
+      <div
+        className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-background via-background/70 to-background"
+        aria-hidden="true"
+      />
+    );
+  }
+
   return (
     <div className="absolute inset-0 z-0">
       <Canvas
