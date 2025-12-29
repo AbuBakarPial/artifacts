@@ -114,16 +114,18 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
             {["A", "B", "S"].map((letter, i) => (
               <motion.span
                 key={letter}
-                className="text-7xl md:text-9xl font-bold bg-gradient-to-b from-primary via-primary to-primary/50 bg-clip-text text-transparent"
+                className="text-7xl md:text-9xl font-bold text-primary"
                 style={{
-                  textShadow: "0 0 60px hsl(var(--primary) / 0.5)",
+                  textShadow: "0 0 60px hsl(var(--primary) / 0.8), 0 0 120px hsl(var(--primary) / 0.4)",
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
                 custom={i}
                 variants={letterVariants}
                 initial="hidden"
                 animate="visible"
-              />
+              >
+                {letter}
+              </motion.span>
             ))}
 
             {/* Underline animation */}
