@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Shield, MapPin, FileText, Server, ExternalLink, ArrowUpRight } from "lucide-react";
+import { Shield, MapPin, FileText, Server, ArrowUpRight } from "lucide-react";
+import { SectionWrapper } from "./SectionWrapper";
 
 const projects = [
   {
@@ -65,96 +66,81 @@ export const ProjectsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 grid-pattern opacity-20" />
-      
-      <div className="section-container relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-1.5 rounded-full glass-card text-primary text-sm font-medium mb-4">
-            Portfolio
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-6">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Enterprise solutions serving government institutions and impacting millions of citizens
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className={`glass-card rounded-2xl overflow-hidden group hover:border-primary/40 transition-all duration-500 border border-border/50 ${
-                project.featured ? "lg:col-span-2" : ""
-              }`}
-            >
-              <div className="p-6 md:p-8">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300">
-                      <project.icon className="text-primary" size={26} />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                          {project.category}
-                        </span>
-                        {project.featured && (
-                          <span className="px-2 py-0.5 rounded bg-accent/20 text-accent text-xs font-medium">
-                            Featured
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-xl md:text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                    </div>
+    <SectionWrapper
+      id="projects"
+      title="Featured Projects"
+      subtitle="Portfolio"
+      description="Enterprise solutions serving government institutions and impacting millions of citizens"
+      show3D={true}
+    >
+      <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {projects.map((project, index) => (
+          <motion.article
+            key={project.title}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+            className={`glass-card rounded-2xl overflow-hidden group hover:border-primary/40 transition-all duration-500 border border-border/30 ${
+              project.featured ? "lg:col-span-2" : ""
+            }`}
+          >
+            <div className="p-6 md:p-8">
+              {/* Header */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 border border-primary/10">
+                    <project.icon className="text-primary" size={26} />
                   </div>
-                  <span className="hidden md:inline-flex px-3 py-1.5 rounded-lg bg-secondary text-xs font-medium text-muted-foreground">
-                    {project.impact}
-                  </span>
-                </div>
-
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Highlights */}
-                <div className="space-y-2 mb-6">
-                  {project.highlights.map((highlight, i) => (
-                    <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <ArrowUpRight className="text-primary mt-0.5 flex-shrink-0" size={14} />
-                      <span>{highlight}</span>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                        {project.category}
+                      </span>
+                      {project.featured && (
+                        <span className="px-2 py-0.5 rounded bg-accent/20 text-accent text-xs font-medium">
+                          Featured
+                        </span>
+                      )}
                     </div>
-                  ))}
+                    <h3 className="text-xl md:text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                  </div>
                 </div>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 pt-4 border-t border-border/50">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1.5 rounded-lg bg-secondary/80 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                <span className="hidden md:inline-flex px-3 py-1.5 rounded-lg glass-card text-xs font-medium text-muted-foreground border border-border/30">
+                  {project.impact}
+                </span>
               </div>
-            </motion.article>
-          ))}
-        </div>
+
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                {project.description}
+              </p>
+
+              {/* Highlights */}
+              <div className="space-y-2 mb-6">
+                {project.highlights.map((highlight, i) => (
+                  <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <ArrowUpRight className="text-primary mt-0.5 flex-shrink-0" size={14} />
+                    <span>{highlight}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Tech Stack */}
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-border/30">
+                {project.tech.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1.5 rounded-lg bg-primary/5 border border-primary/10 text-xs font-medium text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.article>
+        ))}
       </div>
-    </section>
+    </SectionWrapper>
   );
 };
