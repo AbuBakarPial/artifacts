@@ -5,7 +5,7 @@ export const FooterSection = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-8 border-t border-border/50 relative">
+    <footer className="py-8 border-t border-border/30 relative bg-background">
       <div className="section-container">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <motion.div
