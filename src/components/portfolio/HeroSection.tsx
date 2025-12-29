@@ -39,8 +39,8 @@ export const HeroSection = () => {
   const typedText = useTypingEffect([
     "DevSecOps Engineer",
     "Cloud Architect",
-    "Security Specialist",
-    "Mobile Developer"
+    "Security Practitioner",
+    "Mobile App Developer"
   ], 100, 50, 2000);
 
   return (
