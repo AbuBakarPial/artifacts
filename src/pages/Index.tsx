@@ -10,6 +10,7 @@ import { EducationSection } from "@/components/portfolio/EducationSection";
 import { ContactSection } from "@/components/portfolio/ContactSection";
 import { FooterSection } from "@/components/portfolio/FooterSection";
 import Preloader from "@/components/portfolio/Preloader";
+import { ScrollToTop } from "@/components/portfolio/ScrollToTop";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,7 @@ const Index = () => {
         <EducationSection />
         <ContactSection />
         <FooterSection />
+        <ScrollToTop />
       </main>
     </>
   );
