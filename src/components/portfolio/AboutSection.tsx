@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Cloud, Shield, Smartphone, Server } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
+import { ScrollAnimatedCard } from "./ScrollAnimatedCard";
 
 const highlights = [
   {
@@ -35,35 +35,41 @@ const stats = [
 ];
 
 export const AboutSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.15 });
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const statsY = useTransform(scrollYProgress, [0, 0.5, 1], [60, 0, -60]);
+  const summaryY = useTransform(scrollYProgress, [0, 0.5, 1], [80, 0, -80]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
     <SectionWrapper id="about" title="Professional Profile" subtitle="Overview" colorVariant={1}>
-      <div ref={ref}>
+      <div ref={containerRef}>
         {/* Stats Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ y: statsY, opacity }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
         >
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="glass-card p-6 rounded-xl text-center border border-border/30 hover:border-primary/30 transition-all duration-300"
+          {stats.map((stat, index) => (
+            <ScrollAnimatedCard 
+              key={stat.label} 
+              index={index} 
+              direction={index % 2 === 0 ? "left" : "right"}
             >
-              <div className="text-3xl md:text-4xl font-bold font-heading gradient-text mb-1">{stat.value}</div>
-              <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-            </div>
+              <div className="glass-card p-6 rounded-xl text-center border border-border/30 hover:border-primary/30 transition-all duration-300">
+                <div className="text-3xl md:text-4xl font-bold font-heading gradient-text mb-1">{stat.value}</div>
+                <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+              </div>
+            </ScrollAnimatedCard>
           ))}
         </motion.div>
 
         {/* Summary Card */}
         <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ y: summaryY, opacity }}
           className="max-w-4xl mx-auto mb-16"
         >
           <div className="glass-card p-8 md:p-10 rounded-2xl border border-border/30">
@@ -87,19 +93,19 @@ export const AboutSection = () => {
         {/* Highlight Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {highlights.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 60, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.3 + index * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="glass-card p-6 rounded-xl group hover:border-primary/40 transition-all duration-300 border border-border/30"
+            <ScrollAnimatedCard 
+              key={item.title} 
+              index={index}
+              direction={index % 2 === 0 ? "up" : "down"}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all group-hover:scale-110 duration-300">
-                <item.icon className="text-primary" size={24} />
+              <div className="glass-card p-6 rounded-xl group hover:border-primary/40 transition-all duration-300 border border-border/30 h-full">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all group-hover:scale-110 duration-300">
+                  <item.icon className="text-primary" size={24} />
+                </div>
+                <h3 className="text-lg font-semibold font-heading text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
               </div>
-              <h3 className="text-lg font-semibold font-heading text-foreground mb-2">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-            </motion.div>
+            </ScrollAnimatedCard>
           ))}
         </div>
       </div>

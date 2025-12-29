@@ -1,12 +1,19 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
 
 export const ContactSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const cardY = useTransform(scrollYProgress, [0, 0.5, 1], [80, 0, -80]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.85, 1, 1, 0.95]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [15, 0, 0, -10]);
 
   return (
     <SectionWrapper
@@ -16,12 +23,10 @@ export const ContactSection = () => {
       description="Ready to discuss your next project or explore collaboration opportunities? I'm always open to meaningful conversations."
       colorVariant={1}
     >
-      <div ref={ref} className="max-w-2xl mx-auto">
+      <div ref={ref} className="max-w-2xl mx-auto" style={{ perspective: "1000px" }}>
         {/* Contact Info */}
         <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ y: cardY, opacity: cardOpacity, scale: cardScale, rotateX }}
         >
           <div className="glass-card p-8 rounded-2xl border border-border/30">
             <h3 className="text-2xl font-bold font-heading text-foreground mb-6 text-center">

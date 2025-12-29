@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Cloud, Shield, Code, Server, Database, Terminal } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
+import { ScrollAnimatedCard } from "./ScrollAnimatedCard";
 
 const skillCategories = [
   {
@@ -78,24 +78,12 @@ const skillCategories = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 60, scale: 0.9 },
-  visible: { opacity: 1, y: 0, scale: 1 },
-};
-
 export const SkillsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.15 });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
 
   return (
     <SectionWrapper
@@ -105,42 +93,41 @@ export const SkillsSection = () => {
       description="A comprehensive toolkit spanning cloud infrastructure, security, and full-stack development"
       colorVariant={4}
     >
-      <motion.div
+      <div
         ref={ref}
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        style={{ perspective: "1000px" }}
       >
-        {skillCategories.map((category) => (
-          <motion.div
+        {skillCategories.map((category, index) => (
+          <ScrollAnimatedCard
             key={category.title}
-            variants={cardVariants}
-            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="glass-card p-6 md:p-8 rounded-xl group hover:border-primary/30 transition-all duration-300 border border-border/30"
+            index={index}
+            direction={index % 3 === 0 ? "left" : index % 3 === 1 ? "up" : "right"}
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center transition-all group-hover:bg-primary/20 group-hover:scale-110 duration-300 border border-primary/10">
-                <category.icon className="text-primary" size={24} />
+            <div className="glass-card p-6 md:p-8 rounded-xl group hover:border-primary/30 transition-all duration-300 border border-border/30 h-full">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center transition-all group-hover:bg-primary/20 group-hover:scale-110 duration-300 border border-primary/10">
+                  <category.icon className="text-primary" size={24} />
+                </div>
+                <h3 className="text-xl font-bold font-heading text-primary">
+                  {category.title}
+                </h3>
               </div>
-              <h3 className="text-xl font-bold font-heading text-primary">
-                {category.title}
-              </h3>
+              
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 cursor-default bg-primary/5 text-primary/80 hover:bg-primary/15 hover:text-primary border border-primary/10 hover:border-primary/20"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-            
-            <div className="flex flex-wrap gap-2">
-              {category.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 cursor-default bg-primary/5 text-primary/80 hover:bg-primary/15 hover:text-primary border border-primary/10 hover:border-primary/20"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+          </ScrollAnimatedCard>
         ))}
-      </motion.div>
+      </div>
     </SectionWrapper>
   );
 };

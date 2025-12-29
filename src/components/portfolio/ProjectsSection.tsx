@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Shield, MapPin, FileText, Server, ArrowUpRight } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
+import { ScrollAnimatedCard } from "./ScrollAnimatedCard";
 
 const projects = [
   {
@@ -63,7 +63,6 @@ const projects = [
 
 export const ProjectsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <SectionWrapper
@@ -73,72 +72,71 @@ export const ProjectsSection = () => {
       description="Enterprise solutions serving government institutions and impacting millions of citizens"
       colorVariant={3}
     >
-      <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6" style={{ perspective: "1000px" }}>
         {projects.map((project, index) => (
-          <motion.article
+          <ScrollAnimatedCard
             key={project.title}
-            initial={{ opacity: 0, y: 70, scale: 0.92 }}
-            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 + index * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className={`glass-card rounded-2xl overflow-hidden group hover:border-primary/40 transition-all duration-500 border border-border/30 ${
-              project.featured ? "lg:col-span-2" : ""
-            }`}
+            index={index}
+            direction={index % 2 === 0 ? "left" : "right"}
+            className={project.featured ? "lg:col-span-2" : ""}
           >
-            <div className="p-6 md:p-8">
-              {/* Header */}
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 border border-primary/10">
-                    <project.icon className="text-primary" size={26} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                        {project.category}
-                      </span>
-                      {project.featured && (
-                        <span className="px-2 py-0.5 rounded bg-accent/20 text-accent text-xs font-medium">
-                          Featured
-                        </span>
-                      )}
+            <article className="glass-card rounded-2xl overflow-hidden group hover:border-primary/40 transition-all duration-500 border border-border/30 h-full">
+              <div className="p-6 md:p-8">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 border border-primary/10">
+                      <project.icon className="text-primary" size={26} />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                          {project.category}
+                        </span>
+                        {project.featured && (
+                          <span className="px-2 py-0.5 rounded bg-accent/20 text-accent text-xs font-medium">
+                            Featured
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-                <span className="hidden md:inline-flex px-3 py-1.5 rounded-lg glass-card text-xs font-medium text-muted-foreground border border-border/30">
-                  {project.impact}
-                </span>
-              </div>
-
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                {project.description}
-              </p>
-
-              {/* Highlights */}
-              <div className="space-y-2 mb-6">
-                {project.highlights.map((highlight, i) => (
-                  <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <ArrowUpRight className="text-primary mt-0.5 flex-shrink-0" size={14} />
-                    <span>{highlight}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Tech Stack */}
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-border/30">
-                {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1.5 rounded-lg bg-primary/5 border border-primary/10 text-xs font-medium text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
-                  >
-                    {tech}
+                  <span className="hidden md:inline-flex px-3 py-1.5 rounded-lg glass-card text-xs font-medium text-muted-foreground border border-border/30">
+                    {project.impact}
                   </span>
-                ))}
+                </div>
+
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Highlights */}
+                <div className="space-y-2 mb-6">
+                  {project.highlights.map((highlight, i) => (
+                    <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <ArrowUpRight className="text-primary mt-0.5 flex-shrink-0" size={14} />
+                      <span>{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-border/30">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1.5 rounded-lg bg-primary/5 border border-primary/10 text-xs font-medium text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.article>
+            </article>
+          </ScrollAnimatedCard>
         ))}
       </div>
     </SectionWrapper>
