@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, Phone, MapPin, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
 
 export const ContactSection = () => {
@@ -16,16 +16,15 @@ export const ContactSection = () => {
       description="Ready to discuss your next project or explore collaboration opportunities? I'm always open to meaningful conversations."
       colorVariant={1}
     >
-      <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+      <div ref={ref} className="max-w-2xl mx-auto">
         {/* Contact Info */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-8"
         >
           <div className="glass-card p-8 rounded-2xl border border-border/30">
-            <h3 className="text-2xl font-bold font-heading text-foreground mb-6">
+            <h3 className="text-2xl font-bold font-heading text-foreground mb-6 text-center">
               Contact Information
             </h3>
             
@@ -74,8 +73,8 @@ export const ContactSection = () => {
             </div>
 
             <div className="mt-8 pt-8 border-t border-border/30">
-              <p className="text-sm text-muted-foreground mb-4">Connect on social</p>
-              <div className="flex gap-4">
+              <p className="text-sm text-muted-foreground mb-4 text-center">Connect on social</p>
+              <div className="flex justify-center gap-4">
                 <a
                   href="https://bd.linkedin.com/in/abu-bakar-pial"
                   target="_blank"
@@ -96,82 +95,6 @@ export const ContactSection = () => {
                 </a>
               </div>
             </div>
-          </div>
-        </motion.div>
-
-        {/* Contact Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <div className="glass-card p-8 rounded-2xl border border-border/30">
-            <h3 className="text-2xl font-bold font-heading text-foreground mb-6">
-              Send a Message
-            </h3>
-            
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Your name"
-                    className="w-full px-4 py-3 rounded-xl bg-background border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="you@company.com"
-                    className="w-full px-4 py-3 rounded-xl bg-background border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  placeholder="How can I help you?"
-                  className="w-full px-4 py-3 rounded-xl bg-background border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder="Tell me about your project..."
-                  className="w-full px-4 py-3 rounded-xl bg-background border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none"
-                />
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-xl hover:shadow-primary/25"
-              >
-                <Send size={18} />
-                Send Message
-              </button>
-            </form>
           </div>
         </motion.div>
       </div>
