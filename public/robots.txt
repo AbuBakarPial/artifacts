@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://abubakarpial.github.io/artifacts/sitemap.xml
