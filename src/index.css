@@ -35,13 +35,13 @@
 
     --radius: 0.75rem;
 
-    /* Section Background Colors */
+    /* Section Background Colors - More Distinct */
     --section-1: 222 47% 6%;
-    --section-2: 220 45% 8%;
-    --section-3: 225 42% 7%;
-    --section-4: 218 48% 9%;
-    --section-5: 230 40% 8%;
-    --section-6: 215 50% 7%;
+    --section-2: 200 50% 8%;
+    --section-3: 240 40% 7%;
+    --section-4: 280 35% 8%;
+    --section-5: 180 45% 6%;
+    --section-6: 260 40% 7%;
 
     /* Custom Design Tokens */
     --glow-primary: 0 0 60px hsl(186 100% 50% / 0.3);
@@ -132,29 +132,49 @@
     background-size: 60px 60px;
   }
 
-  /* Section color variants */
+  /* Section color variants - More Distinct */
   .section-variant-1 {
-    background: linear-gradient(180deg, hsl(var(--section-1)) 0%, hsl(var(--section-2)) 100%);
+    background: linear-gradient(180deg, 
+      hsl(222 47% 5%) 0%, 
+      hsl(210 50% 8%) 50%,
+      hsl(200 45% 6%) 100%);
   }
   
   .section-variant-2 {
-    background: linear-gradient(180deg, hsl(var(--section-2)) 0%, hsl(220 50% 10%) 50%, hsl(var(--section-3)) 100%);
+    background: linear-gradient(180deg, 
+      hsl(200 45% 6%) 0%, 
+      hsl(190 55% 9%) 30%,
+      hsl(185 50% 7%) 70%,
+      hsl(180 45% 5%) 100%);
   }
   
   .section-variant-3 {
-    background: linear-gradient(180deg, hsl(var(--section-3)) 0%, hsl(var(--section-4)) 100%);
+    background: linear-gradient(180deg, 
+      hsl(180 45% 5%) 0%, 
+      hsl(240 35% 9%) 50%,
+      hsl(260 40% 7%) 100%);
   }
   
   .section-variant-4 {
-    background: linear-gradient(180deg, hsl(var(--section-4)) 0%, hsl(225 45% 10%) 50%, hsl(var(--section-5)) 100%);
+    background: linear-gradient(180deg, 
+      hsl(260 40% 7%) 0%, 
+      hsl(280 45% 10%) 30%,
+      hsl(290 40% 8%) 70%,
+      hsl(270 35% 6%) 100%);
   }
   
   .section-variant-5 {
-    background: linear-gradient(180deg, hsl(var(--section-5)) 0%, hsl(var(--section-6)) 100%);
+    background: linear-gradient(180deg, 
+      hsl(270 35% 6%) 0%, 
+      hsl(45 30% 8%) 50%,
+      hsl(35 35% 6%) 100%);
   }
   
   .section-variant-6 {
-    background: linear-gradient(180deg, hsl(var(--section-6)) 0%, hsl(var(--section-1)) 100%);
+    background: linear-gradient(180deg, 
+      hsl(35 35% 6%) 0%, 
+      hsl(220 50% 9%) 50%,
+      hsl(222 47% 6%) 100%);
   }
 
   .noise-overlay {

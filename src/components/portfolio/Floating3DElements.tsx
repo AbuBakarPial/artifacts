@@ -6,118 +6,183 @@ interface Props {
 
 export const Floating3DElements = ({ variant = 1 }: Props) => {
   const colors = {
-    1: { primary: "#00d4ff", accent: "#ffc107" },
-    2: { primary: "#00d4ff", accent: "#00ff88" },
-    3: { primary: "#00d4ff", accent: "#ff6b6b" },
-    4: { primary: "#ffc107", accent: "#00d4ff" },
-    5: { primary: "#00ff88", accent: "#00d4ff" },
-    6: { primary: "#00d4ff", accent: "#a855f7" },
+    1: { primary: "#00d4ff", accent: "#ffc107", glow: "rgba(0, 212, 255, 0.4)" },
+    2: { primary: "#00ff88", accent: "#00d4ff", glow: "rgba(0, 255, 136, 0.4)" },
+    3: { primary: "#ff6b6b", accent: "#ffc107", glow: "rgba(255, 107, 107, 0.4)" },
+    4: { primary: "#a855f7", accent: "#00d4ff", glow: "rgba(168, 85, 247, 0.4)" },
+    5: { primary: "#ffc107", accent: "#ff6b6b", glow: "rgba(255, 193, 7, 0.4)" },
+    6: { primary: "#00d4ff", accent: "#a855f7", glow: "rgba(0, 212, 255, 0.4)" },
   };
 
   const color = colors[variant];
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Floating Orb 1 */}
+      {/* Large Primary Orb */}
       <motion.div
         animate={{
-          x: [0, 30, -20, 0],
-          y: [0, -40, 20, 0],
-          scale: [1, 1.1, 0.9, 1],
+          x: [0, 80, -40, 0],
+          y: [0, -60, 40, 0],
+          scale: [1, 1.2, 0.9, 1],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute rounded-full"
+        style={{
+          width: "500px",
+          height: "500px",
+          background: `radial-gradient(circle, ${color.primary}40 0%, ${color.primary}20 30%, transparent 70%)`,
+          boxShadow: `0 0 120px 60px ${color.glow}`,
+          top: "5%",
+          right: "5%",
+          filter: "blur(40px)",
+        }}
+      />
+
+      {/* Large Accent Orb */}
+      <motion.div
+        animate={{
+          x: [0, -60, 80, 0],
+          y: [0, 50, -40, 0],
+          scale: [1, 0.8, 1.1, 1],
         }}
         transition={{
           duration: 15,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute w-64 h-64 rounded-full blur-3xl opacity-20"
+        className="absolute rounded-full"
         style={{
-          background: `radial-gradient(circle, ${color.primary} 0%, transparent 70%)`,
-          top: "10%",
-          right: "10%",
+          width: "400px",
+          height: "400px",
+          background: `radial-gradient(circle, ${color.accent}35 0%, ${color.accent}15 30%, transparent 70%)`,
+          boxShadow: `0 0 100px 50px ${color.accent}30`,
+          bottom: "10%",
+          left: "-5%",
+          filter: "blur(30px)",
         }}
       />
 
-      {/* Floating Orb 2 */}
+      {/* Medium Orb */}
       <motion.div
         animate={{
-          x: [0, -40, 30, 0],
-          y: [0, 30, -30, 0],
-          scale: [1, 0.9, 1.1, 1],
+          x: [0, 40, -30, 0],
+          y: [0, -30, 20, 0],
         }}
         transition={{
-          duration: 18,
+          duration: 10,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute w-48 h-48 rounded-full blur-3xl opacity-15"
+        className="absolute rounded-full"
         style={{
-          background: `radial-gradient(circle, ${color.accent} 0%, transparent 70%)`,
-          bottom: "20%",
-          left: "5%",
+          width: "250px",
+          height: "250px",
+          background: `radial-gradient(circle, ${color.primary}30 0%, transparent 70%)`,
+          boxShadow: `0 0 80px 40px ${color.primary}20`,
+          top: "50%",
+          left: "60%",
+          filter: "blur(25px)",
         }}
       />
 
-      {/* Geometric Shape 1 - Rotating Square */}
+      {/* Rotating Square */}
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute w-20 h-20 border opacity-20"
-        style={{
-          borderColor: color.primary,
-          top: "20%",
-          right: "15%",
-          transform: "rotate(45deg)",
-        }}
-      />
-
-      {/* Geometric Shape 2 - Rotating Circle */}
-      <motion.div
-        animate={{ rotate: -360, scale: [1, 1.2, 1] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute w-16 h-16 rounded-full border opacity-15"
+        className="absolute"
         style={{
-          borderColor: color.accent,
-          bottom: "30%",
-          left: "10%",
-        }}
-      />
-
-      {/* Geometric Shape 3 - Diamond */}
-      <motion.div
-        animate={{ 
-          rotate: [0, 180, 360],
-          y: [0, -20, 0],
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-12 h-12 border opacity-20"
-        style={{
-          borderColor: color.primary,
-          top: "60%",
+          width: "120px",
+          height: "120px",
+          border: `2px solid ${color.primary}50`,
+          boxShadow: `0 0 20px ${color.primary}30, inset 0 0 20px ${color.primary}10`,
+          top: "15%",
           right: "20%",
           transform: "rotate(45deg)",
         }}
       />
 
-      {/* Floating Particles */}
-      {[...Array(8)].map((_, i) => (
+      {/* Rotating Circle */}
+      <motion.div
+        animate={{ 
+          rotate: -360,
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute rounded-full"
+        style={{
+          width: "80px",
+          height: "80px",
+          border: `2px solid ${color.accent}60`,
+          boxShadow: `0 0 30px ${color.accent}40`,
+          bottom: "25%",
+          left: "15%",
+        }}
+      />
+
+      {/* Floating Diamond */}
+      <motion.div
+        animate={{ 
+          rotate: [0, 180, 360],
+          y: [0, -30, 0],
+          opacity: [0.4, 0.8, 0.4],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute"
+        style={{
+          width: "60px",
+          height: "60px",
+          border: `2px solid ${color.primary}70`,
+          boxShadow: `0 0 25px ${color.primary}50`,
+          top: "60%",
+          right: "25%",
+          transform: "rotate(45deg)",
+        }}
+      />
+
+      {/* Small Diamond */}
+      <motion.div
+        animate={{ 
+          rotate: [45, 225, 405],
+          scale: [1, 1.3, 1],
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute"
+        style={{
+          width: "40px",
+          height: "40px",
+          border: `2px solid ${color.accent}60`,
+          boxShadow: `0 0 20px ${color.accent}40`,
+          top: "30%",
+          left: "10%",
+        }}
+      />
+
+      {/* Floating Particles - Larger and brighter */}
+      {[...Array(12)].map((_, i) => (
         <motion.div
           key={i}
           animate={{
-            y: [0, -30, 0],
-            opacity: [0.2, 0.6, 0.2],
-            scale: [1, 1.5, 1],
+            y: [0, -50, 0],
+            opacity: [0.3, 1, 0.3],
+            scale: [1, 1.8, 1],
           }}
           transition={{
-            duration: 4 + i * 0.5,
+            duration: 3 + i * 0.4,
             repeat: Infinity,
-            delay: i * 0.3,
+            delay: i * 0.2,
           }}
-          className="absolute w-1 h-1 rounded-full"
+          className="absolute rounded-full"
           style={{
+            width: i % 3 === 0 ? "6px" : "4px",
+            height: i % 3 === 0 ? "6px" : "4px",
             backgroundColor: i % 2 === 0 ? color.primary : color.accent,
-            left: `${10 + i * 12}%`,
-            top: `${20 + (i % 3) * 25}%`,
+            boxShadow: `0 0 15px 5px ${i % 2 === 0 ? color.primary : color.accent}`,
+            left: `${8 + i * 8}%`,
+            top: `${15 + (i % 4) * 20}%`,
           }}
         />
       ))}
@@ -125,29 +190,55 @@ export const Floating3DElements = ({ variant = 1 }: Props) => {
       {/* Glowing Lines */}
       <motion.div
         animate={{ 
-          opacity: [0.1, 0.3, 0.1],
-          scaleX: [1, 1.2, 1],
+          opacity: [0.2, 0.6, 0.2],
+          scaleX: [1, 1.5, 1],
         }}
-        transition={{ duration: 8, repeat: Infinity }}
-        className="absolute h-px w-32"
+        transition={{ duration: 6, repeat: Infinity }}
+        className="absolute"
         style={{
+          height: "2px",
+          width: "200px",
           background: `linear-gradient(90deg, transparent, ${color.primary}, transparent)`,
-          top: "40%",
-          left: "20%",
+          boxShadow: `0 0 20px ${color.primary}`,
+          top: "35%",
+          left: "15%",
         }}
       />
 
       <motion.div
         animate={{ 
-          opacity: [0.1, 0.25, 0.1],
-          scaleX: [1, 0.8, 1],
+          opacity: [0.15, 0.5, 0.15],
+          scaleX: [1, 0.7, 1],
         }}
-        transition={{ duration: 6, repeat: Infinity, delay: 2 }}
-        className="absolute h-px w-24"
+        transition={{ duration: 5, repeat: Infinity, delay: 1.5 }}
+        className="absolute"
         style={{
+          height: "2px",
+          width: "150px",
           background: `linear-gradient(90deg, transparent, ${color.accent}, transparent)`,
-          bottom: "35%",
-          right: "25%",
+          boxShadow: `0 0 15px ${color.accent}`,
+          bottom: "40%",
+          right: "20%",
+        }}
+      />
+
+      {/* Corner Accent Triangles */}
+      <motion.div
+        animate={{ 
+          opacity: [0.1, 0.3, 0.1],
+          rotate: [0, 10, 0],
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+        className="absolute"
+        style={{
+          width: 0,
+          height: 0,
+          borderLeft: "60px solid transparent",
+          borderRight: "60px solid transparent",
+          borderBottom: `100px solid ${color.primary}15`,
+          filter: `drop-shadow(0 0 20px ${color.primary}40)`,
+          top: "10%",
+          left: "5%",
         }}
       />
     </div>
