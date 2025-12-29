@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Md. Abu Bakar Siddique | DevSecOps Engineer</title>
+    <script>
+      // Single Page App redirect for GitHub Pages
+      const segmentCount = 1; // Number of path segments to keep (for /artifacts/)
+      const location = window.location;
+      const pathSegmentsToKeep = location.pathname.split('/').slice(0, 1 + segmentCount).join('/');
+      const redirectPath = location.pathname.slice(pathSegmentsToKeep.length);
+      
+      location.replace(
+        location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') +
+        pathSegmentsToKeep + '/' +
+        '?p=' + encodeURIComponent(redirectPath + location.search) +
+        location.hash
+      );
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>

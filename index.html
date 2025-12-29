@@ -10,11 +10,30 @@
     <meta property="og:title" content="Md. Abu Bakar Siddique | DevSecOps Engineer" />
     <meta property="og:description" content="Versatile IT Professional with expertise in cloud infrastructure, mobile development, and offensive security." />
     <meta property="og:type" content="website" />
-    <link rel="canonical" href="https://abubakarpial.github.io/portfolio" />
+    <link rel="canonical" href="https://abubakarpial.github.io/artifacts/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>Md. Abu Bakar Siddique | DevSecOps Engineer</title>
+    <!-- SPA redirect handling for GitHub Pages -->
+    <script>
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+        // Handle ?p= parameter from 404.html redirect
+        var params = new URLSearchParams(location.search);
+        var path = params.get('p');
+        if (path) {
+          params.delete('p');
+          var newSearch = params.toString();
+          var newUrl = location.pathname + path + (newSearch ? '?' + newSearch : '') + location.hash;
+          history.replaceState(null, null, newUrl);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
