@@ -34,8 +34,7 @@ export const EducationSection = () => {
       id="education"
       title="Academic Background"
       subtitle="Education"
-      variant="accent"
-      show3D={true}
+      colorVariant={6}
     >
       <div ref={ref} className="max-w-3xl mx-auto">
         <div className="space-y-6">

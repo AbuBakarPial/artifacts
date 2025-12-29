@@ -103,8 +103,7 @@ export const SkillsSection = () => {
       title="Technical Proficiencies"
       subtitle="Expertise"
       description="A comprehensive toolkit spanning cloud infrastructure, security, and full-stack development"
-      variant="accent"
-      show3D={true}
+      colorVariant={4}
     >
       <motion.div
         ref={ref}

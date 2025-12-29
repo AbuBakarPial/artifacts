@@ -14,7 +14,7 @@ export const ContactSection = () => {
       title="Let's Connect"
       subtitle="Get in Touch"
       description="Ready to discuss your next project or explore collaboration opportunities? I'm always open to meaningful conversations."
-      show3D={true}
+      colorVariant={1}
     >
       <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
         {/* Contact Info */}

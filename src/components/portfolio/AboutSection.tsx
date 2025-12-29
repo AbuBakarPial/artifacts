@@ -43,7 +43,7 @@ export const AboutSection = () => {
       id="about"
       title="Professional Profile"
       subtitle="Overview"
-      show3D={true}
+      colorVariant={1}
     >
       <div ref={ref}>
         {/* Stats Bar */}

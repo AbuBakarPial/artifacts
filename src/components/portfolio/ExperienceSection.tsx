@@ -58,8 +58,7 @@ export const ExperienceSection = () => {
       id="experience"
       title="Professional Experience"
       subtitle="Career Journey"
-      variant="accent"
-      show3D={true}
+      colorVariant={2}
     >
       <div ref={ref} className="relative max-w-4xl mx-auto">
         {/* Timeline Line */}

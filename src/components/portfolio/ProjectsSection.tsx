@@ -71,7 +71,7 @@ export const ProjectsSection = () => {
       title="Featured Projects"
       subtitle="Portfolio"
       description="Enterprise solutions serving government institutions and impacting millions of citizens"
-      show3D={true}
+      colorVariant={3}
     >
       <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {projects.map((project, index) => (
