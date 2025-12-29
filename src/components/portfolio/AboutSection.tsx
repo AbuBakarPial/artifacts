@@ -17,7 +17,7 @@ const highlights = [
   },
   {
     icon: Smartphone,
-    title: "Mobile Development",
+    title: "Mobile App Development",
     description: "Flutter, Dart, clean architecture, and cross-platform applications",
   },
   {
@@ -39,12 +39,7 @@ export const AboutSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <SectionWrapper
-      id="about"
-      title="Professional Profile"
-      subtitle="Overview"
-      colorVariant={1}
-    >
+    <SectionWrapper id="about" title="Professional Profile" subtitle="Overview" colorVariant={1}>
       <div ref={ref}>
         {/* Stats Bar */}
         <motion.div
@@ -58,12 +53,8 @@ export const AboutSection = () => {
               key={stat.label}
               className="glass-card p-6 rounded-xl text-center border border-border/30 hover:border-primary/30 transition-all duration-300"
             >
-              <div className="text-3xl md:text-4xl font-bold font-heading gradient-text mb-1">
-                {stat.value}
-              </div>
-              <div className="text-sm text-muted-foreground font-medium">
-                {stat.label}
-              </div>
+              <div className="text-3xl md:text-4xl font-bold font-heading gradient-text mb-1">{stat.value}</div>
+              <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -80,15 +71,15 @@ export const AboutSection = () => {
               Versatile and highly technical IT Professional with extensive expertise spanning{" "}
               <span className="text-primary font-medium">full-stack mobile development</span>,{" "}
               <span className="text-accent font-medium">cloud infrastructure (Oracle OCI/APEX)</span>, and{" "}
-              <span className="text-primary font-medium">offensive security</span>. Proven track record 
-              in designing robust application architectures while simultaneously managing complex 
-              server environments.
+              <span className="text-primary font-medium">offensive security</span>. Proven track record in designing
+              robust application architectures while simultaneously managing complex server environments.
             </p>
             <div className="w-16 h-px bg-gradient-to-r from-primary to-accent my-6" />
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Currently serving as <span className="text-foreground font-medium">IT Officer at Ministry of Home Affairs</span>, 
-              delivering enterprise-grade solutions for government digital transformation initiatives, 
-              security hardening, and infrastructure optimization.
+              Currently serving as{" "}
+              <span className="text-foreground font-medium">IT Officer at Ministry of Home Affairs</span>, delivering
+              enterprise-grade solutions for government digital transformation initiatives, security hardening, and
+              infrastructure optimization.
             </p>
           </div>
         </motion.div>
@@ -106,12 +97,8 @@ export const AboutSection = () => {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all group-hover:scale-110 duration-300">
                 <item.icon className="text-primary" size={24} />
               </div>
-              <h3 className="text-lg font-semibold font-heading text-foreground mb-2">
-                {item.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {item.description}
-              </p>
+              <h3 className="text-lg font-semibold font-heading text-foreground mb-2">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
             </motion.div>
           ))}
         </div>
