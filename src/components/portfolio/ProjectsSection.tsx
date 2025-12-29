@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Shield, MapPin, FileText, Server } from "lucide-react";
+import { Shield, MapPin, FileText, Server, ExternalLink, ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
     title: "Sharodio Shurokkha App",
     icon: Shield,
     category: "Government Security",
-    description: "Multi-tier incident response ecosystem for real-time election security monitoring and rapid mobilization.",
+    description: "Multi-tier incident response ecosystem for real-time election security monitoring and rapid mobilization across Bangladesh.",
     highlights: [
       "Role-based hierarchical Observer Modules with live geospatial heatmaps",
       "GPS-based Click-to-Call responder directories",
@@ -16,43 +16,47 @@ const projects = [
     ],
     tech: ["Flutter", "Firebase", "Google Maps API", "Real-time Database"],
     featured: true,
+    impact: "National Scale",
   },
   {
     title: "Location Finder",
     icon: MapPin,
     category: "Utility Application",
-    description: "Integrated BTS tower data visualization on Google Maps with advanced architecture patterns.",
+    description: "Advanced BTS tower data visualization system with enterprise-grade architecture patterns.",
     highlights: [
       "MVVM structure with Riverpod architecture",
       "Device IMEI binding and location tracking",
       "Cross-platform deployment (Google Play & Apple Store)",
     ],
     tech: ["Flutter", "Riverpod", "Google Maps", "REST API"],
+    impact: "Production App",
   },
   {
-    title: "Marriage & Divorce Registration System",
+    title: "Marriage & Divorce Registration",
     icon: FileText,
     category: "Government Digital Service",
-    description: "Secure digital registry with national ID verification and OTP integration.",
+    description: "Secure digital registry system with national ID verification and regulatory compliance.",
     highlights: [
       "NID (National ID) verification integration",
-      "Backend logic for certificate generation",
-      "Compliance with data privacy regulations",
+      "Automated certificate generation",
+      "Data privacy regulation compliance",
     ],
     tech: ["Flutter", "Oracle APEX", "PostgreSQL", "Security APIs"],
+    impact: "Citizens Portal",
   },
   {
     title: "Enterprise Attack Detection Lab",
     icon: Server,
     category: "Cybersecurity Research",
-    description: "Multi-VM enterprise security lab simulating corporate network for security research and training.",
+    description: "Comprehensive security lab simulating corporate network environments for threat detection research.",
     highlights: [
       "Active Directory attack scenario simulations",
       "SSH honeypot (Cowrie) implementation",
-      "Wazuh SIEM integration with custom detection rules",
+      "Wazuh SIEM with custom detection rules",
       "MITRE ATT&CK framework mapping",
     ],
-    tech: ["Wazuh SIEM", "Active Directory", "Cowrie Honeypot", "Kali Linux", "VMware"],
+    tech: ["Wazuh SIEM", "Active Directory", "Cowrie", "Kali Linux", "VMware"],
+    impact: "Research Lab",
   },
 ];
 
@@ -75,10 +79,10 @@ export const ProjectsSection = () => {
             Portfolio
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-6">
-            Key <span className="gradient-text">Projects</span>
+            Featured <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Enterprise-grade solutions serving government institutions and millions of users
+            Enterprise solutions serving government institutions and impacting millions of citizens
           </p>
         </motion.div>
 
@@ -89,50 +93,58 @@ export const ProjectsSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className={`glass-card rounded-2xl overflow-hidden group hover:border-primary/50 transition-all duration-500 ${
+              className={`glass-card rounded-2xl overflow-hidden group hover:border-primary/40 transition-all duration-500 border border-border/50 ${
                 project.featured ? "lg:col-span-2" : ""
               }`}
             >
               <div className="p-6 md:p-8">
-                <div className="flex items-start justify-between mb-4">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <project.icon className="text-primary" size={24} />
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300">
+                      <project.icon className="text-primary" size={26} />
                     </div>
                     <div>
-                      <span className="text-xs font-medium text-primary uppercase tracking-wider">
-                        {project.category}
-                      </span>
-                      <h3 className="text-xl md:text-2xl font-bold font-heading text-foreground">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                          {project.category}
+                        </span>
+                        {project.featured && (
+                          <span className="px-2 py-0.5 rounded bg-accent/20 text-accent text-xs font-medium">
+                            Featured
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors">
                         {project.title}
                       </h3>
                     </div>
                   </div>
-                  {project.featured && (
-                    <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium">
-                      Featured
-                    </span>
-                  )}
+                  <span className="hidden md:inline-flex px-3 py-1.5 rounded-lg bg-secondary text-xs font-medium text-muted-foreground">
+                    {project.impact}
+                  </span>
                 </div>
 
-                <p className="text-muted-foreground mb-6">
+                <p className="text-muted-foreground mb-6 leading-relaxed">
                   {project.description}
                 </p>
 
-                <ul className="space-y-2 mb-6">
+                {/* Highlights */}
+                <div className="space-y-2 mb-6">
                   {project.highlights.map((highlight, i) => (
-                    <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                      {highlight}
-                    </li>
+                    <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <ArrowUpRight className="text-primary mt-0.5 flex-shrink-0" size={14} />
+                      <span>{highlight}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
-                <div className="flex flex-wrap gap-2">
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-border/50">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-full bg-secondary text-sm text-muted-foreground"
+                      className="px-3 py-1.5 rounded-lg bg-secondary/80 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                     >
                       {tech}
                     </span>
