@@ -6,7 +6,7 @@ import { SectionWrapper } from "./SectionWrapper";
 
 export const ContactSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <SectionWrapper
@@ -19,9 +19,9 @@ export const ContactSection = () => {
       <div ref={ref} className="max-w-2xl mx-auto">
         {/* Contact Info */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className="glass-card p-8 rounded-2xl border border-border/30">
             <h3 className="text-2xl font-bold font-heading text-foreground mb-6 text-center">

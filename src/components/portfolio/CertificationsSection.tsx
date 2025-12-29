@@ -69,7 +69,7 @@ const certifications = [
 
 export const CertificationsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <SectionWrapper
@@ -82,9 +82,9 @@ export const CertificationsSection = () => {
       <div ref={ref}>
         {/* Certification Categories Summary */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
           <div className="flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-border/30">
@@ -105,9 +105,9 @@ export const CertificationsSection = () => {
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.title}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.15 + index * 0.05 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 + index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="glass-card p-5 rounded-xl group hover:border-primary/30 transition-all duration-300 flex items-center gap-4 border border-border/30"
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-primary/10">

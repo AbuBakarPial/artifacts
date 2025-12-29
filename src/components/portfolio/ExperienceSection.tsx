@@ -51,7 +51,7 @@ const experiences = [
 
 export const ExperienceSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <SectionWrapper
@@ -67,9 +67,9 @@ export const ExperienceSection = () => {
         {experiences.map((exp, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 + index * 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className={`relative mb-12 md:mb-16 ${
               index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
             }`}
