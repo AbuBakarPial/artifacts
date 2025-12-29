@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, ReactNode } from "react";
 import { Floating3DElements } from "./Floating3DElements";
 
@@ -21,15 +20,28 @@ export const SectionWrapper = ({
   colorVariant = 1,
 }: SectionWrapperProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -15]);
 
   return (
     <section 
       id={id} 
+      ref={ref}
       className={`py-24 md:py-32 relative overflow-hidden section-variant-${colorVariant}`}
+      style={{ perspective: "1000px" }}
     >
       {/* Grid Pattern */}
-      <div className="absolute inset-0 grid-pattern opacity-[0.02]" />
+      <motion.div 
+        className="absolute inset-0 grid-pattern opacity-[0.02]"
+        style={{ y: useTransform(scrollYProgress, [0, 1], [0, 50]) }}
+      />
       
       {/* 3D Floating Elements */}
       <Floating3DElements variant={colorVariant} />
@@ -40,17 +52,17 @@ export const SectionWrapper = ({
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background/50 to-transparent pointer-events-none" />
       
-      <div className="section-container relative z-10" ref={ref}>
+      <div className="section-container relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ opacity, scale, rotateX, y }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full glass-card text-primary text-sm font-medium mb-4 border border-primary/20">
+          <motion.span 
+            className="inline-block px-4 py-1.5 rounded-full glass-card text-primary text-sm font-medium mb-4 border border-primary/20"
+          >
             {subtitle}
-          </span>
+          </motion.span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-4">
             {title.split(" ").map((word, i, arr) => 
               i === arr.length - 1 ? (
@@ -67,7 +79,9 @@ export const SectionWrapper = ({
           )}
         </motion.div>
 
-        {children}
+        <motion.div style={{ opacity: useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]) }}>
+          {children}
+        </motion.div>
       </div>
     </section>
   );

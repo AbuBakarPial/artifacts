@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
+import { ScrollAnimatedCard } from "./ScrollAnimatedCard";
 
 const experiences = [
   {
@@ -51,7 +51,12 @@ const experiences = [
 
 export const ExperienceSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <SectionWrapper
@@ -61,15 +66,20 @@ export const ExperienceSection = () => {
       colorVariant={2}
     >
       <div ref={ref} className="relative max-w-4xl mx-auto">
-        {/* Timeline Line */}
-        <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent transform md:-translate-x-1/2" />
+        {/* Timeline Line - Static */}
+        <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border/30 transform md:-translate-x-1/2" />
+        
+        {/* Timeline Line - Animated fill */}
+        <motion.div 
+          className="absolute left-0 md:left-1/2 top-0 w-px bg-gradient-to-b from-primary via-primary to-primary/50 transform md:-translate-x-1/2"
+          style={{ height: lineHeight }}
+        />
 
         {experiences.map((exp, index) => (
-          <motion.div
+          <ScrollAnimatedCard
             key={index}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 + index * 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            index={index}
+            direction={index % 2 === 0 ? "left" : "right"}
             className={`relative mb-12 md:mb-16 ${
               index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
             }`}
@@ -118,7 +128,7 @@ export const ExperienceSection = () => {
                 </ul>
               </div>
             </div>
-          </motion.div>
+          </ScrollAnimatedCard>
         ))}
       </div>
     </SectionWrapper>

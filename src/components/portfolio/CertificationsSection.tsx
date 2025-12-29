@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { BadgeCheck, Cloud, Shield, Code } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
+import { ScrollAnimatedCard } from "./ScrollAnimatedCard";
 
 const certifications = [
   {
@@ -69,7 +69,13 @@ const certifications = [
 
 export const CertificationsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const summaryY = useTransform(scrollYProgress, [0, 0.5, 1], [50, 0, -50]);
+  const summaryOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
     <SectionWrapper
@@ -82,9 +88,7 @@ export const CertificationsSection = () => {
       <div ref={ref}>
         {/* Certification Categories Summary */}
         <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ y: summaryY, opacity: summaryOpacity }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
           <div className="flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-border/30">
@@ -101,33 +105,33 @@ export const CertificationsSection = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ perspective: "1000px" }}>
           {certifications.map((cert, index) => (
-            <motion.div
+            <ScrollAnimatedCard
               key={cert.title}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="glass-card p-5 rounded-xl group hover:border-primary/30 transition-all duration-300 flex items-center gap-4 border border-border/30"
+              index={index}
+              direction={index % 2 === 0 ? "left" : "right"}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-primary/10">
-                <cert.icon className="text-primary" size={22} />
-              </div>
-              
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base font-semibold font-heading text-foreground leading-tight mb-1 group-hover:text-primary transition-colors">
-                  {cert.title}
-                </h3>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground">{cert.issuer}</span>
-                  <span className="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium border border-primary/10">
-                    {cert.category}
-                  </span>
+              <div className="glass-card p-5 rounded-xl group hover:border-primary/30 transition-all duration-300 flex items-center gap-4 border border-border/30 h-full">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-primary/10">
+                  <cert.icon className="text-primary" size={22} />
                 </div>
-              </div>
+                
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base font-semibold font-heading text-foreground leading-tight mb-1 group-hover:text-primary transition-colors">
+                    {cert.title}
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">{cert.issuer}</span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium border border-primary/10">
+                      {cert.category}
+                    </span>
+                  </div>
+                </div>
 
-              <BadgeCheck className="text-primary flex-shrink-0" size={20} />
-            </motion.div>
+                <BadgeCheck className="text-primary flex-shrink-0" size={20} />
+              </div>
+            </ScrollAnimatedCard>
           ))}
         </div>
       </div>
