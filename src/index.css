@@ -35,6 +35,14 @@
 
     --radius: 0.75rem;
 
+    /* Section Background Colors */
+    --section-1: 222 47% 6%;
+    --section-2: 220 45% 8%;
+    --section-3: 225 42% 7%;
+    --section-4: 218 48% 9%;
+    --section-5: 230 40% 8%;
+    --section-6: 215 50% 7%;
+
     /* Custom Design Tokens */
     --glow-primary: 0 0 60px hsl(186 100% 50% / 0.3);
     --glow-accent: 0 0 40px hsl(45 100% 60% / 0.2);
@@ -122,6 +130,31 @@
       linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
       linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
     background-size: 60px 60px;
+  }
+
+  /* Section color variants */
+  .section-variant-1 {
+    background: linear-gradient(180deg, hsl(var(--section-1)) 0%, hsl(var(--section-2)) 100%);
+  }
+  
+  .section-variant-2 {
+    background: linear-gradient(180deg, hsl(var(--section-2)) 0%, hsl(220 50% 10%) 50%, hsl(var(--section-3)) 100%);
+  }
+  
+  .section-variant-3 {
+    background: linear-gradient(180deg, hsl(var(--section-3)) 0%, hsl(var(--section-4)) 100%);
+  }
+  
+  .section-variant-4 {
+    background: linear-gradient(180deg, hsl(var(--section-4)) 0%, hsl(225 45% 10%) 50%, hsl(var(--section-5)) 100%);
+  }
+  
+  .section-variant-5 {
+    background: linear-gradient(180deg, hsl(var(--section-5)) 0%, hsl(var(--section-6)) 100%);
+  }
+  
+  .section-variant-6 {
+    background: linear-gradient(180deg, hsl(var(--section-6)) 0%, hsl(var(--section-1)) 100%);
   }
 
   .noise-overlay {

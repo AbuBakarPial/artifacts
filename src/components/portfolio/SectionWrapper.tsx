@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, ReactNode } from "react";
-import { Section3DBackground } from "./Section3DBackground";
+import { Floating3DElements } from "./Floating3DElements";
 
 interface SectionWrapperProps {
   id?: string;
@@ -9,8 +9,7 @@ interface SectionWrapperProps {
   title: string;
   subtitle: string;
   description?: string;
-  variant?: "primary" | "accent";
-  show3D?: boolean;
+  colorVariant?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 export const SectionWrapper = ({
@@ -19,23 +18,27 @@ export const SectionWrapper = ({
   title,
   subtitle,
   description,
-  variant = "primary",
-  show3D = true,
+  colorVariant = 1,
 }: SectionWrapperProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id={id} className="py-24 md:py-32 relative overflow-hidden">
-      {/* Consistent Background */}
-      <div className="absolute inset-0 bg-background" />
-      <div className="absolute inset-0 grid-pattern opacity-[0.03]" />
+    <section 
+      id={id} 
+      className={`py-24 md:py-32 relative overflow-hidden section-variant-${colorVariant}`}
+    >
+      {/* Grid Pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-[0.02]" />
       
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent" />
+      {/* 3D Floating Elements */}
+      <Floating3DElements variant={colorVariant} />
       
-      {/* 3D Background */}
-      {show3D && <Section3DBackground variant={variant} density="low" />}
+      {/* Top gradient fade */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background/50 to-transparent pointer-events-none" />
+      
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background/50 to-transparent pointer-events-none" />
       
       <div className="section-container relative z-10" ref={ref}>
         {/* Section Header */}

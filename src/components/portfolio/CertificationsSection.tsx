@@ -77,7 +77,7 @@ export const CertificationsSection = () => {
       title="Professional Certifications"
       subtitle="Credentials"
       description="Industry-recognized certifications from Oracle, CISCO, and EC Council"
-      show3D={true}
+      colorVariant={5}
     >
       <div ref={ref}>
         {/* Certification Categories Summary */}
