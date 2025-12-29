@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavigationBar } from "@/components/portfolio/NavigationBar";
 import { HeroSection } from "@/components/portfolio/HeroSection";
 import { AboutSection } from "@/components/portfolio/AboutSection";
@@ -8,21 +9,27 @@ import { CertificationsSection } from "@/components/portfolio/CertificationsSect
 import { EducationSection } from "@/components/portfolio/EducationSection";
 import { ContactSection } from "@/components/portfolio/ContactSection";
 import { FooterSection } from "@/components/portfolio/FooterSection";
+import Preloader from "@/components/portfolio/Preloader";
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <main className="relative">
-      <NavigationBar />
-      <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <CertificationsSection />
-      <EducationSection />
-      <ContactSection />
-      <FooterSection />
-    </main>
+    <>
+      <Preloader onComplete={() => setIsLoading(false)} />
+      <main className={`relative ${isLoading ? 'overflow-hidden h-screen' : ''}`}>
+        <NavigationBar />
+        <HeroSection />
+        <AboutSection />
+        <ExperienceSection />
+        <ProjectsSection />
+        <SkillsSection />
+        <CertificationsSection />
+        <EducationSection />
+        <ContactSection />
+        <FooterSection />
+      </main>
+    </>
   );
 };
 
