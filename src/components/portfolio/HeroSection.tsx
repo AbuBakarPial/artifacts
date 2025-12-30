@@ -62,6 +62,9 @@ export const HeroSection = () => {
             className="relative"
           >
             <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
+              {/* Glow Effect Behind Circle */}
+              <div className="absolute inset-0 rounded-full bg-primary/20 blur-3xl scale-110" />
+              <div className="absolute inset-0 rounded-full bg-accent/15 blur-2xl scale-105" />
               {/* Animated Rings */}
               <motion.div 
                 animate={{ rotate: 360 }}
