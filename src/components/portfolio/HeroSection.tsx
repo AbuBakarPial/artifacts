@@ -80,7 +80,7 @@ export const HeroSection = () => {
                 <img
                   src={profilePhoto}
                   alt="Md. Abu Bakar Siddique - DevSecOps Engineer"
-                  className="w-full h-full object-cover object-top scale-110"
+                  className="w-full h-full object-cover"
                 />
                 {/* Image overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
@@ -155,7 +155,7 @@ export const HeroSection = () => {
                 Get in Touch
               </a>
               <a
-                href="https://raw.githubusercontent.com/AbuBakarPial/artifacts/main/public/cv.pdf"
+                href={`${import.meta.env.BASE_URL}cv.pdf`}
                 download="Abu_Bakar_Siddique_CV.pdf"
                 className="group flex items-center gap-2 px-6 py-3.5 rounded-xl glass-card border border-primary/40 text-foreground font-semibold hover:border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/15"
               >
