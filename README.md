@@ -2,10 +2,6 @@
 
 Personal portfolio website for ABS.
 
-## Project info
-
-This is a personal portfolio site.
-
 ## What technologies are used for this project?
 
 This project is built with:
