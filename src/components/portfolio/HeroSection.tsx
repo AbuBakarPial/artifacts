@@ -76,7 +76,7 @@ export const HeroSection = () => {
               <div className="absolute inset-0 rounded-full border-2 border-primary/40 animate-pulse-glow" />
               
               {/* Profile Image */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/60 glow-primary">
+              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/60 glow-primary bg-gradient-to-br from-primary/10 via-background to-accent/10">
                 <img
                   src={profilePhoto}
                   alt="Md. Abu Bakar Siddique - DevSecOps Engineer"
