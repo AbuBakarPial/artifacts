@@ -1,3 +1,7 @@
+# ABS Portfolio
+
+Personal portfolio website for ABS.
+
 ## Project info
 
 This is a personal portfolio site.
@@ -11,3 +15,7 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Three.js
+- Framer Motion
+
+<!-- Deployment trigger: 2024-12-30 -->
