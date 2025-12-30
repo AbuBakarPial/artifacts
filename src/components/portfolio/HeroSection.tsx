@@ -61,7 +61,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative w-64 h-64 lg:w-80 lg:h-80">
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
               {/* Animated Rings */}
               <motion.div 
                 animate={{ rotate: 360 }}
