@@ -61,10 +61,10 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
+            <div className="group relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] cursor-pointer">
               {/* Glow Effect Behind Circle */}
-              <div className="absolute inset-0 rounded-full bg-primary/20 blur-3xl scale-110" />
-              <div className="absolute inset-0 rounded-full bg-accent/15 blur-2xl scale-105" />
+              <div className="absolute inset-0 rounded-full bg-primary/20 blur-3xl scale-110 transition-all duration-500 group-hover:bg-primary/40 group-hover:scale-125" />
+              <div className="absolute inset-0 rounded-full bg-accent/15 blur-2xl scale-105 transition-all duration-500 group-hover:bg-accent/30 group-hover:scale-115" />
               {/* Animated Rings */}
               <motion.div 
                 animate={{ rotate: 360 }}
