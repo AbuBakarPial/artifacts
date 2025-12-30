@@ -80,7 +80,7 @@ export const HeroSection = () => {
                 <img
                   src={profilePhoto}
                   alt="Md. Abu Bakar Siddique - DevSecOps Engineer"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 {/* Image overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
