@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import profilePhoto from "@/assets/profile-photo.jpg";
 import { ThreeBackground } from "./ThreeBackground";
@@ -80,7 +80,7 @@ export const HeroSection = () => {
                 <img
                   src={profilePhoto}
                   alt="Md. Abu Bakar Siddique - DevSecOps Engineer"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top scale-110"
                 />
                 {/* Image overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
@@ -135,7 +135,7 @@ export const HeroSection = () => {
               className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8"
             >
               Bridging <span className="text-primary font-medium">cloud infrastructure</span>,{" "}
-              <span className="text-accent font-medium">mobile development</span>, and{" "}
+              <span className="text-accent font-medium">mobile app development</span>, and{" "}
               <span className="text-primary font-medium">offensive security</span> to deliver 
               enterprise-grade solutions for government and private sectors.
             </motion.p>
@@ -153,6 +153,14 @@ export const HeroSection = () => {
               >
                 <Mail size={18} />
                 Get in Touch
+              </a>
+              <a
+                href="https://raw.githubusercontent.com/AbuBakarPial/artifacts/main/public/cv.pdf"
+                download="Abu_Bakar_Siddique_CV.pdf"
+                className="group flex items-center gap-2 px-6 py-3.5 rounded-xl glass-card border border-primary/40 text-foreground font-semibold hover:border-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/15"
+              >
+                <Download size={18} />
+                Download CV
               </a>
             </motion.div>
             
